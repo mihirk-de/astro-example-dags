@@ -25,3 +25,6 @@ jobs:
     steps:
     - name: Deploy to Astro
       uses: astronomer/deploy-action@v0.4
+      with:
+        astro-api-token: ${{ env.ASTRO_API_TOKEN }}
+        deployment-id:    ${{ env.DEPLOYMENT_ID }}

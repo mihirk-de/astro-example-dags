@@ -23,6 +23,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Install Astro CLI
+      run: curl -sSL https://install.astronomer.io | sudo bash -s
+
+    - name: Set Astro Workspace Context
+      run: astro context switch --workspace-id $ASTRO_WORKSPACE_ID
+      env:
+        ASTRO_API_TOKEN: ${{ env.ASTRO_API_TOKEN }}
+        ASTRO_WORKSPACE_ID: ${{ secrets.ASTRO_WORKSPACE_ID }}
     - name: Deploy to Astro
       uses: astronomer/deploy-action@v0.4
       with:

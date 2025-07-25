@@ -34,13 +34,13 @@ import requests
     default_args={"owner": "Astro", "retries": 3},
     tags=["test"],
 )
-def example_astronauts():
+def test_dag():
     #Define tasks
     @task(
         #Define a dataset outlet for the task. This can be used to schedule downstream DAGs when this task has run.
         outlets=[Dataset("current_astronauts")]
     )  # Define that this task updates the `current_astronauts` Dataset
-    def get_astronauts(**context) -> list[dict]:
+    def test(**context) -> list[dict]:
         """
         This task uses the requests library to retrieve a list of Astronauts 
         currently in space. The results are pushed to XCom with a specific key
@@ -49,7 +49,7 @@ def example_astronauts():
         """
         print("**hello world**")
       
-    get_astronauts() #Define dependencies using TaskFlow API syntax
+    test() #Define dependencies using TaskFlow API syntax
     
 #Instantiate the DAG
-example_astronauts()
+test_dag()

@@ -29,11 +29,13 @@ jobs:
     - name: Install Astro CLI
       run: curl -sSL https://install.astronomer.io | sudo bash -s
 
-    - name: Set Astro Workspace Context
-      run: astro context switch --workspace-id $ASTRO_WORKSPACE_ID
+    - name: Init Astro Context
+      run: |
+        astro context init ci-context --domain "https://api.astronomer.io" --token "$ASTRO_API_TOKEN"
+        astro context switch ci-context
       env:
-        ASTRO_API_TOKEN: ${{ env.ASTRO_API_TOKEN }}
-        ASTRO_WORKSPACE_ID: ${{ secrets.ASTRO_WORKSPACE_ID }}
+        ASTRO_API_TOKEN: ${{ secrets.ASTRO_API_TOKEN }}
+          
     - name: Deploy to Astro
       uses: astronomer/deploy-action@v0.4
       with:

@@ -1,0 +1,13 @@
+my_dbt_proj:
+  outputs:
+    dev:
+      account: re14111.eu-west-1
+      database: transformed_dev
+      password: test
+      role: transform
+      schema: interim_dbt
+      threads: 1
+      type: snowflake
+      user: dbt
+      warehouse: COMPUTE_WH
+  target: dev

@@ -26,5 +26,10 @@ from pendulum import datetime
 with DAG("run_dbt_model", start_date=datetime(2024, 1, 1), schedule=None, catchup=False):
     run_model = BashOperator(
         task_id="run_customer_model",
-        bash_command="cd /usr/local/airflow/dbt/my_dbt_proj && dbt run --profiles-dir /usr/local/airflow/dbt/profiles"
+        # bash_command="cd /usr/local/airflow/dbt/my_dbt_proj && dbt run --profiles-dir /usr/local/airflow/dbt/profiles"
+        bash_command="""$SNOWFLAKE_PRIVATE_KEY_BASE64" | base64 -d > /tmp/rsa_key.p8 &&
+export SNOWFLAKE_PRIVATE_KEY_PATH=/tmp/rsa_key.p8 &&
+cd /usr/local/airflow/dbt/my_dbt_proj &&
+dbt run --profiles-dir /usr/local/airflow/dbt/profiles
+"""
     )

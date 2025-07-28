@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: int_icd_consultation_notes
+    description: "Notes derived from MedicalHistory + ICD10 joins"
+    columns:
+      - name: consultation_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+
+  - name: int_icpc_consultation_notes
+    description: "Notes derived from MedicalHistory + ICPC2 joins"
+    columns:
+      - name: consultation_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"

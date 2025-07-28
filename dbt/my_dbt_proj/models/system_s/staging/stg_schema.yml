@@ -1,0 +1,130 @@
+version: 2
+
+models:
+  - name: stg_consultation_notes
+    description: "Staged consultation notes with cleaned and renamed columns"
+    columns:
+      - name: note_id
+        description: "Primary key for consultation notes"
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+          - unique:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+
+      - name: consultation_id
+        description: "Foreign key to the consultation"
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+
+    tests:  
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: [note_id, gp_practice_id]
+          where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+  
+  - name: stg_medical_history
+    description: "Staged medical history records with cleaned columns"
+    columns:
+      - name: mh_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+          - unique:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+      - name: consultation_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+    tests:  
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: [mh_id, gp_practice_id]
+          where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+        
+
+  - name: stg_icd10
+    description: "Staged ICD10 code descriptions"
+    columns:
+      - name: icd_code
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+          - unique:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+
+  - name: stg_icpc2
+    description: "Staged ICPC2 code descriptions"
+    columns:
+      - name: icpc_code
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+          - unique:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+
+  - name: stg_consultation
+    description: "Staged consultations with normalized field names"
+    columns:
+      - name: consultation_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+          - unique:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+      - name: patient_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+    tests:  
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: [consultation_id, gp_practice_id]
+          where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+
+  - name: stg_clinical_details
+    description: "Staged clinical details used to derive baseline details"
+    columns:
+      - name: patient_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+
+
+  - name: stg_prescriptions
+    description: "Staged prescriptions"
+    columns:
+      - name: prescription_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+          - unique:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+      - name: patient_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+
+
+  - name: stg_prescription_issue
+    description: "Staged prescription issue"
+    columns:
+      - name: prescription_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+      - name: drug_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+
+
+  - name: stg_prescription_instructions
+    description: "Staged prescription instructions"
+    columns:
+      - name: prescription_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+      - name: instruction_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"

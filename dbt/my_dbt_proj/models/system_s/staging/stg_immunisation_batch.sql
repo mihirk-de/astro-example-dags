@@ -1,0 +1,63 @@
+-- models/system_s/staging/stg_immunisationbatch.sql
+
+WITH source AS (
+    SELECT
+        immunisationbatchid AS immunisation_batch_id,
+        batchnumber AS batch_number,
+        expirydate AS expiry_date,
+        drugid AS drug_id,
+        manufacturer AS manufacturer,
+        tradename AS trade_name,
+        agent AS agent,
+        batchcount AS batch_count,
+        batchremaining AS batch_remaining,
+        deactivateonzero AS deactivate_on_zero,
+        datecreated AS date_created,
+        datemodified AS date_modified,
+        lastmodifiedby AS last_modified_by,
+        dataversion AS data_version,
+        active AS active,
+        issystemlocked AS is_system_locked,
+        seasonstartdate AS season_start_date,
+        seasonenddate AS season_end_date,
+        vaccinetypeid AS vaccine_type_id,
+        availabilitystatus AS availability_status,
+        vaccineidentifierid AS vaccine_identifier_id,
+        immunisationsiteid AS immunisation_site_id,
+        immunisationmethodid AS immunisation_method_id,
+        immunisationdoseid AS immunisation_dose_id,
+        usebydaterequired AS use_by_date_required,
+        externalutcmodificationdate AS external_utc_modification_date,
+        gp_practice_id AS gp_practice_id
+    FROM {{ source('system_s', 'immunisationbatch') }}
+)
+
+SELECT
+    immunisation_batch_id,
+    batch_number,
+    expiry_date,
+    drug_id,
+    manufacturer,
+    trade_name,
+    agent,
+    batch_count,
+    batch_remaining,
+    deactivate_on_zero,
+    date_created,
+    date_modified,
+    last_modified_by,
+    data_version,
+    active,
+    is_system_locked,
+    season_start_date,
+    season_end_date,
+    vaccine_type_id,
+    availability_status,
+    vaccine_identifier_id,
+    immunisation_site_id,
+    immunisation_method_id,
+    immunisation_dose_id,
+    use_by_date_required,
+    external_utc_modification_date,
+    gp_practice_id
+FROM source

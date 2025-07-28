@@ -1,0 +1,109 @@
+version: 2
+
+sources:
+  - name: system_s
+    database: raw_consolidated_dev
+    schema: system_s
+
+    tables:
+      
+      # patient
+      - name: patientheader
+      - name: patientdetails
+      
+      # consultation
+      - name: consultation
+      - name: consultationnotes
+
+      - name: appointmenttypes
+      - name: sitetypes
+      - name: icd10
+      - name: medicalhistory
+      - name: icpc2
+      - name: clinicaldetails
+
+      - name: prescriptions
+      - name: prescriptionissue
+
+      - name: prescriptioninstructions
+      - name: druginstructions
+      - name: CdmAgeRule
+      - name: CdmDiagnosisFieldRequirement
+      - name: CdmDiagnosisType
+      - name: CdmDiagnosisTypeAccessRule
+      - name: CdmFieldType
+      - name: CdmFieldTypeUnavailability
+      - name: CdmHl7Submission
+      - name: CdmOcfFieldRequirement
+      - name: CdmOcfIndication
+      - name: CdmPPFieldRequirement
+      - name: CdmPreventativeReason
+      - name: CdmPreventativeReasonAccessRule
+      - name: CdmProgramme
+      - name: CdmRegistration
+      - name: CdmReview
+      - name: CdmReviewDiagnosis
+      - name: CdmReviewOcf
+      - name: CdmReviewOcfIndication
+      - name: CdmReviewOcfOutcome
+      - name: CdmReviewPP
+      - name: CdmReviewPPOutcome
+      - name: CdmReviewPPReason
+      - name: CdmReviewType
+      - name: CdmSetting
+      - name: CdmCarePlan
+      - name: CdmReviewResult
+      - name: mmse
+      - name: mirenacounselling
+      - name: cycleofcaresubmission
+      - name: DiabetesCareCycle
+      - name: CycleOfCareVisit
+      - name: CYCLEOFCARESUBTYPE
+      - name: AsthmaCareCycle
+      - name: PeriodicAssessmentCareCycle
+      - name: CycleOfCare
+      - name: CycleOfCareType
+      - name: CycleOfCareListCode
+
+      - name: patientcontacts
+      - name: patientcustomfields
+      - name: patientcustomfieldvalues
+
+      - name: insurance
+      - name: insurancescheme
+      - name: patienttypes
+
+      - name: patientoccupations
+      - name: patientconsentidentifier
+      - name: patientconsent
+      - name: nationalitytypes
+      - name: residentalstatustypes
+      - name: ethnicorigintypes
+      - name: religiontypes
+      - name: maritalstatustypes
+      - name: investigations
+      - name: investigationitems
+      - name: patientinvestigations
+      - name: investigationresults
+      - name: labinvestigation
+      - name: labpatientinvestigations
+      - name: labinvestigationresults
+
+      - name: immunisationschedule
+      - name: immunisationcourses
+      - name: schedulecourses
+      - name: courseshots
+      - name: immunisationshots
+      - name: immunisationmethods
+      - name: immunisationdoses
+      - name: immunisationsite
+      - name: vaccinetype
+      - name: patientimmschedule
+      - name: patientshotschedule
+      - name: patientimmunisations
+      - name: recurringshotschedule
+      - name: immunisationreactions
+      - name: reactions
+      - name: immunisationshotbatch
+      - name: immunisationbatch
+      - name: vaccineidentifier

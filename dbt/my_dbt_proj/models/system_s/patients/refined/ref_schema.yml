@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: ref_patients
+    description: "Intermediate model for denormalized patients data"
+    columns:
+      - name: patient_id
+        tests:
+          - not_null
+              # where: gp_practice_id = '{{ var('gp_practice_id') }}'
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - patient_id
+            - gp_practice_id
+          description: >
+            Patient is uniquely identified by the combination of patient_id and gp_practice_id.
+            This guards against duplicate rows caused by joins or upstream data duplication.
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'patientheader')
+          description: >
+            Validates that the number of patients per clinic in the refined model matches the number in the source model
+            for the given gp_practice_id. This helps detect accidental row loss or duplication during transformations.
+
+  - name: ref_patient_insurance
+    description: "Intermediate model for denormalized patient insurance data"
+    columns:
+      - name: patient_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - patient_id
+            - gp_practice_id
+          description: >
+            Patient is uniquely identified by the combination of patient_id and gp_practice_id.
+            This guards against duplicate rows caused by joins or upstream data duplication.
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'patientdetails')
+          compare_row_condition: "active = TRUE"
+          description: >
+            Validates that the number of patient insurance count per clinic in the refined model matches the number in the source model
+            for the given gp_practice_id. This helps detect accidental row loss or duplication during transformations.

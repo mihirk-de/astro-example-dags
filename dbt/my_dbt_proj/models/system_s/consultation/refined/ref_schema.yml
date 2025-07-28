@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: ref_consultation
+    description: "Refined intermediate model for denormalized consultation data joined with appointment and site types."
+    columns:
+      - name: consultation_id
+        tests:
+          - not_null:
+              where: gp_practice_id = '{{ var('gp_practice_id') }}'
+        description: "Primary key from raw consultation for the clinic. This with gp_practice_id makes unique key."
+
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - consultation_id
+            - gp_practice_id
+          description: >
+            Ensures each consultation is uniquely identified within a clinic by the combination of consultation_id and gp_practice_id.
+            This guards against duplicate rows caused by joins or upstream data duplication.
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: ref('stg_consultation')
+          where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+          description: >
+            Validates that the number of consultations in the refined model matches the number in the staging model
+            for the given gp_practice_id. This helps detect accidental row loss or duplication during transformations.
+
+  - name: ref_consultation_notes
+    description: "Consolidated consultation notes from original notes and medical history (ICD/ICPC)"
+    columns:
+      - name: consultation_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+      - name: patient_id
+        tests:
+          - not_null:
+              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
+

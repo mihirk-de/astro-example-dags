@@ -1,0 +1,58 @@
+-- models/system_s/staging/stg_patient_details.sql
+
+WITH source AS (
+    SELECT *
+    FROM {{ source('system_s', 'patientdetails') }}
+)
+
+SELECT
+    detailsid                 AS details_id,
+    patientid                 AS patient_id,
+    salutation                AS salutation,
+    surname                   AS surname,
+    homephoneno               AS home_phone_no,
+    mobileno                  AS mobile_no,
+    gender                    AS gender,
+    maritalstatustype         AS marital_status_type,
+    nationalitytype           AS nationality_type,
+    religiontype              AS religion_type,
+    socialclasstype           AS social_class_type,
+    proximitytype             AS proximity_type,
+    address1                  AS address_1,
+    address2                  AS address_2,
+    address3                  AS address_3,
+    address4                  AS address_4,
+    gmsnum                    AS gms_num,
+    gmsreview                 AS gms_review,
+    billingname               AS billing_name,
+    billingaddress            AS billing_address,
+    registrationdate          AS registration_date,
+    deregistrationdate        AS deregistration_date,
+    status                    AS status,
+    datecreated               AS date_created,
+    datemodified              AS date_modified,
+    lastupdatedby             AS last_updated_by,
+    patienttype               AS patient_type,
+    gmscancelled              AS gms_cancelled,
+    gmsclass                  AS gms_class,
+    gmsstatus                 AS gms_status,
+    active                    AS active,
+    branchid                  AS branch_id,
+    deregistrationnote        AS deregistration_note,
+    ethnicorigin              AS ethnic_origin,
+    residentalstatus          AS residental_status,
+    email                     AS email,
+    nhsnumber                 AS nhs_number,
+    gmsstatusold              AS gms_status_old,
+    gmsuserid                 AS gms_user_id,
+    chartno                   AS chart_no,
+    healthboard               AS health_board,
+    accountnote               AS account_note,
+    personalnote              AS personal_note,
+    smsconsent                AS sms_consent,
+    departmentid              AS department_id,
+    postcode                  AS postcode,
+    portalaccessblocked       AS portal_access_blocked,
+    registeredbyuserid        AS registered_by_user_id,
+    gp_practice_id            AS gp_practice_id
+FROM source

@@ -17,8 +17,6 @@ with source as (
         on mh.icd_code = icd.icd_code and {{ match_clinic_value('mh', 'icd') }}
     inner join {{ ref('stg_consultation') }} c
         on mh.consultation_id = c.consultation_id and {{ match_clinic_value('mh', 'c') }}
-    where {{ filter_by_clinic(alias="mh") }}
-    -- where mh.gp_practice_id = '{{ var("gp_practice_id") }}'
 )
 
 select * from source

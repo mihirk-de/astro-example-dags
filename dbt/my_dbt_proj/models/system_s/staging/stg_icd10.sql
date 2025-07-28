@@ -1,8 +1,6 @@
 with source as (
     select *
     from {{ source('system_s', 'icd10') }}
-    WHERE {{ filter_by_clinic() }}
-    -- where gp_practice_id = '{{ var("gp_practice_id") }}'
 ),
 
 renamed as (

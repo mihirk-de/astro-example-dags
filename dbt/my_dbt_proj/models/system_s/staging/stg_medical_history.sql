@@ -1,7 +1,6 @@
 with source as (
     select *
     from {{ source('system_s', 'medicalhistory') }}
-    WHERE {{ filter_by_clinic() }}
     -- where gp_practice_id = '{{ var("gp_practice_id") }}'
 ),
 

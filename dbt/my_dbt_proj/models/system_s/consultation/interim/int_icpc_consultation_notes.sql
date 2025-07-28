@@ -17,7 +17,6 @@ with source as (
         on mh.icpc_code = icpc.icpc_code and {{ match_clinic_value('mh', 'icpc') }}
     inner join {{ ref('stg_consultation') }} c
         on mh.consultation_id = c.consultation_id and {{ match_clinic_value('mh', 'c') }}
-    where {{ filter_by_clinic(alias="mh") }}
     
 
 )

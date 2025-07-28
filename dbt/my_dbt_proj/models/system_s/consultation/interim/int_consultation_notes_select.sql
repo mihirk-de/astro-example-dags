@@ -13,7 +13,6 @@ with source as (
         deleted,
         gp_practice_id
     from {{ ref('stg_consultation_notes') }} 
-    WHERE {{ filter_by_clinic() }}
 )
 
 select * from source

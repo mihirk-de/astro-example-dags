@@ -7,7 +7,6 @@ models:
       - name: consultation_id
         tests:
           - not_null:
-              where: gp_practice_id = '{{ var('gp_practice_id') }}'
         description: "Primary key from raw consultation for the clinic. This with gp_practice_id makes unique key."
 
     tests:
@@ -20,7 +19,6 @@ models:
             This guards against duplicate rows caused by joins or upstream data duplication.
       - dbt_expectations.expect_table_row_count_to_equal_other_table:
           compare_model: ref('stg_consultation')
-          where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
           description: >
             Validates that the number of consultations in the refined model matches the number in the staging model
             for the given gp_practice_id. This helps detect accidental row loss or duplication during transformations.
@@ -31,9 +29,7 @@ models:
       - name: consultation_id
         tests:
           - not_null:
-              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
       - name: patient_id
         tests:
           - not_null:
-              where: "gp_practice_id = '{{ var('gp_practice_id') }}'"
 

@@ -2,7 +2,6 @@ with source as (
 
     select *
     from {{ source('system_s', 'consultationnotes') }}
-    WHERE {{ filter_by_clinic() }}
 
 ),
 

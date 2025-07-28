@@ -1,7 +1,5 @@
 WITH source AS (
   SELECT * FROM {{ source('system_s', 'sitetypes') }}
-  WHERE {{ filter_by_clinic() }}
-  -- WHERE gp_practice_id = '{{ var("gp_practice_id") }}'
 )
 
 SELECT

@@ -8,12 +8,8 @@ from pendulum import datetime
 #         bash_command="which dbt && dbt --version"
 #     )
 
-# from airflow import DAG
-# from airflow.operators.bash import BashOperator
-# from pendulum import datetime
-
 with DAG("run_dbt_model", start_date=datetime(2024, 1, 1), schedule=None, catchup=False):
     run_model = BashOperator(
         task_id="run_customer_model",
-        bash_command="cd /usr/app/dbt/my_dbt_project && dbt run --profiles-dir /usr/app/dbt/profiles"
+        bash_command="cd /usr/app/dbt/my_dbt_proj && dbt run --profiles-dir /usr/app/dbt/profiles"
     )

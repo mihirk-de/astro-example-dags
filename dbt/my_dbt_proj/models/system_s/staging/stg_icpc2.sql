@@ -1,7 +1,6 @@
 with source as (
     select *
     from {{ source('system_s', 'icpc2') }}
-    -- where gp_practice_id = '{{ var("gp_practice_id") }}'
 ),
 
 renamed as (

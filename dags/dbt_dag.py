@@ -17,7 +17,7 @@ with DAG("run_system_s_dbt_features", start_date=datetime(2024, 1, 1), schedule=
 # dbt run --profiles-dir /usr/local/airflow/dbt/profiles
 # """
 #     )
-    # tasks = []
+    tasks = []
     # for feature in features:
     #     task = BashOperator(
     #         task_id=f"run_{feature.replace('.', '_')}",

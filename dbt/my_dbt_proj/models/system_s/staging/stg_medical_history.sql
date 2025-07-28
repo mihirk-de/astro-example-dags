@@ -1,7 +1,5 @@
 with source as (
     select *
-    from {{ source('system_s', 'medicalhistory') }}
-    -- where gp_practice_id = '{{ var("gp_practice_id") }}'
 ),
 
 renamed as (

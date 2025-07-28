@@ -9,11 +9,19 @@ from pendulum import datetime
 #     )
 
 with DAG("list_usr_app", start_date=datetime(2024, 1, 1), schedule=None, catchup=False):
-    list_folders = BashOperator(
-        task_id="list_usr_app_folders",
-        bash_command="ls -lR /"
-    )
+    find_dbt = BashOperator(
+        task_id="locate_dbt_project",
+        bash_command="""
+        echo "🔍 Searching for dbt_project.yml..."
+        find / -name dbt_project.yml 2>/dev/null
 
+        echo "\n🔍 Searching for folders named 'dbt'..."
+        find / -type d -name dbt 2>/dev/null
+
+        echo "\n🔍 Listing large folders to find your repo..."
+        du -h --max-depth=2 / | sort -hr | head -n 20
+        """,
+    )
 
 # with DAG("run_dbt_model", start_date=datetime(2024, 1, 1), schedule=None, catchup=False):
 #     run_model = BashOperator(

@@ -1,5 +1,6 @@
 with source as (
     select *
+    from {{ source('system_s', 'medicalhistory') }}
 ),
 
 renamed as (

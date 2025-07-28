@@ -11,7 +11,7 @@ from pendulum import datetime
 with DAG("list_usr_app", start_date=datetime(2024, 1, 1), schedule=None, catchup=False):
     list_folders = BashOperator(
         task_id="list_usr_app_folders",
-        bash_command="ls -lR /usr/app"
+        bash_command="ls -lR /"
     )
 
 

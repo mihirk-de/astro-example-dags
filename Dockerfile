@@ -7,5 +7,6 @@ FROM astrocrpublic.azurecr.io/runtime:3.0-5
 # FROM astrocrpublic.azurecr.io/runtime:3.0-5
 RUN pip install dbt-core dbt-snowflake
 
-
+# Install dbt packages
+RUN dbt deps --project-dir /usr/local/airflow/dbt/my_dbt_proj
 

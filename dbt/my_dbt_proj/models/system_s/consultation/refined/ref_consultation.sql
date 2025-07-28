@@ -1,14 +1,3 @@
-{{ 
-  config(
-    materialized='incremental',
-    unique_key=['consultation_id', 'gp_practice_id'],
-    on_schema_change='fail',
-    pre_hook=[
-        "{{ delete_practice_pre_hook(var_name='gp_practice_id') }}"
-    ]
-  ) 
-}}
-
 SELECT
   c.consultation_id,
   c.patient_id,

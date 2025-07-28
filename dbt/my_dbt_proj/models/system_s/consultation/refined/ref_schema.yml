@@ -6,7 +6,7 @@ models:
     columns:
       - name: consultation_id
         tests:
-          - not_null:
+          - not_null
         description: "Primary key from raw consultation for the clinic. This with gp_practice_id makes unique key."
 
     tests:
@@ -28,8 +28,8 @@ models:
     columns:
       - name: consultation_id
         tests:
-          - not_null:
+          - not_null
       - name: patient_id
         tests:
-          - not_null:
+          - not_null
 

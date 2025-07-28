@@ -3,9 +3,9 @@ my_dbt_proj:
     dev:
       account: re14111.eu-west-1
       database: transformed_dev
-      password: test
+      password: dbtPassword123
       role: transform
-      schema: interim_dbt
+      schema: snowflake_dbt
       threads: 1
       type: snowflake
       user: dbt

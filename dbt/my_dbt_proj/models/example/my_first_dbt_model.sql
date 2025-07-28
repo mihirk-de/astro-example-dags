@@ -11,9 +11,7 @@
 
 with source_data as (
 
-    select 1 as id
-    union all
-    select null as id
+    select patientid, gp_practice_id from {{ source('system_s', 'patientheader') }} where patientid < 10
 
 )
 

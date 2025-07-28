@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: system_s
+    database: raw_consolidated_dev
+    schema: system_s
+
+    tables:
+      
+      # patient
+      - name: patientheader

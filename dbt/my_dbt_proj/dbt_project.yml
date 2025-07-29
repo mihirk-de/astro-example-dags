@@ -40,7 +40,36 @@ models:
           +materialized: ephemeral
         refined:
           +materialized: table
+      baseline:
+        refined:
+          +materialized: table
       consultation:
+        interim:
+          +materialized: ephemeral
+        refined:
+          +materialized: table
+      prescription:
+        interim:
+          +materialized: ephemeral
+        refined:
+          +materialized: table
+      cdm:
+        refined:
+          +materialized: table
+      protocols:
+        interim:
+          +materialized: ephemeral
+        refined:
+          +materialized: table
+      contacts:
+        interim:
+          +materialized: ephemeral
+        refined:
+          +materialized: table
+      investigation:
+        refined:
+          +materialized: table
+      immunisation:
         interim:
           +materialized: ephemeral
         refined:

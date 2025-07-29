@@ -1,0 +1,219 @@
+version: 2
+
+models:
+  - name: ref_immunisation_schedule
+    description: "Refined immunisation schedule records per clinic"
+    columns:
+      - name: schedule_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - schedule_id
+            - gp_practice_id
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'immunisationschedule')
+
+  - name: ref_immunisation_courses
+    description: "Refined immunisation course records per clinic"
+    columns:
+      - name: course_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - course_id
+            - gp_practice_id
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'immunisationcourses')
+
+  - name: ref_schedule_courses
+    description: "Refined schedule-to-course mappings per clinic"
+    columns:
+      - name: schedule_id
+        tests:
+          - not_null
+      - name: course_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - schedule_id
+            - course_id
+            - gp_practice_id
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'schedulecourses')
+
+  - name: ref_course_shots
+    description: "Refined course-shot mappings per clinic"
+    columns:
+      - name: course_id
+        tests:
+          - not_null
+      - name: shot_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      # - dbt_utils.unique_combination_of_columns:
+      #     combination_of_columns:
+      #       - course_id
+      #       - shot_id
+      #       - gp_practice_id
+      # to be checked!
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'courseshots')
+
+  - name: ref_immunisation_shots
+    description: "Refined immunisation shots details per clinic"
+    columns:
+      - name: shot_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - shot_id
+            - gp_practice_id
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'immunisationshots')
+
+  - name: ref_immunisation_shot_batch
+    description: "Refined shot-batch mappings per clinic"
+    columns:
+      - name: immunisation_batch_id
+        tests:
+          - not_null
+      - name: shot_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - immunisation_batch_id
+            - shot_id
+            - gp_practice_id
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'immunisationshotbatch')
+
+  - name: ref_patient_imm_schedule
+    description: "Refined patient immunisation schedule per clinic"
+    columns:
+      - name: pis_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - pis_id
+            - gp_practice_id
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'patientimmschedule')
+
+  - name: ref_patient_shot_schedule
+    description: "Refined patient shot schedule per clinic"
+    columns:
+      - name: pss_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - pss_id
+            - gp_practice_id
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'patientshotschedule')
+
+  - name: ref_patient_immunisations
+    description: "Refined patient immunisations per clinic"
+    columns:
+      - name: immunisation_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - immunisation_id
+            - gp_practice_id
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'patientimmunisations')
+
+  - name: ref_recurring_shot_schedule
+    description: "Refined recurring shot schedule per clinic"
+    columns:
+      - name: recurring_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - recurring_id
+            - gp_practice_id
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'recurringshotschedule')
+
+  - name: ref_immunisation_reactions
+    description: "Refined immunisation reactions per clinic"
+    columns:
+      - name: reaction_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - reaction_id
+            - gp_practice_id
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'immunisationreactions')
+
+  - name: ref_reactions
+    description: "Refined patient reactions per clinic"
+    columns:
+      - name: reaction_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - reaction_id
+            - gp_practice_id
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'reactions')

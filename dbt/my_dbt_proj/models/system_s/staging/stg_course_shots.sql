@@ -13,6 +13,7 @@ WITH source AS (
         shotnumber AS shot_number,
         shotnumberlabeloverride AS shot_number_label_override,
         gp_practice_id AS gp_practice_id
+    FROM {{ source('system_s', 'courseshots') }}
 )
 
 SELECT

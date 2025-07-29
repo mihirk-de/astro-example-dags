@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: ref_prescriptions
+    description: "Intermediate model for denormalized prescription data"
+    columns:
+      - name: prescription_id
+        tests:
+          - not_null
+        description: "Primary key from prescription for the clinic. This with gp_practice_id makes unique key."
+      - name: consultation_id
+        tests:
+          - not_null
+      - name: patient_id
+        tests:
+          - not_null
+
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - prescription_id
+            - gp_practice_id
+          description: >
+            Ensures each prescription is uniquely identified within a clinic by the combination of prescription_id and gp_practice_id.
+            This guards against duplicate rows caused by joins or upstream data duplication.
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: ref('stg_prescriptions')
+          description: >
+            Validates that the number of prescriptions in the refined model matches the number in the staging model
+            for the given gp_practice_id. This helps detect accidental row loss or duplication during transformations.
+
+  - name: ref_prescription_issue
+    description: "Intermediate model for denormalized prescription issue data"
+    columns:
+      - name: prescription_id
+        tests:
+          - not_null
+      - name: drug_id
+        tests:
+          - not_null
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: ref('stg_prescription_issue')
+          description: >
+            Validates that the number of prescription issue in the refined model matches the number in the staging model
+            for the given gp_practice_id. This helps detect accidental row loss or duplication during transformations.
+
+  - name: ref_prescription_instructions
+    description: "Intermediate model for denormalized prescription instructions data"
+    columns:
+      - name: prescription_id
+        tests:
+          - not_null
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: ref('stg_prescription_instructions')
+          description: >
+            Validates that the number of prescription instructions in the refined model matches the number in the staging model
+            for the given gp_practice_id. This helps detect accidental row loss or duplication during transformations.

@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: ref_baseline_details
+    description: "Clinical details table"
+    columns:
+      - name: patient_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: ref('stg_clinical_details')
+          description: >
+            Validates that the number of baseline/clinical details record in the intermediate model matches the number in the staging model
+            for the given gp_practice_id. This helps detect accidental row loss or duplication during transformations.
+

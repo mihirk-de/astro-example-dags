@@ -1,6 +1,6 @@
 with source as (
     select * from {{ source('system_s', 'prescriptionissue') }}
-    WHERE {{ filter_by_clinic() }}
+    
 )
 
 select

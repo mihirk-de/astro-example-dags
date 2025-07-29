@@ -1,0 +1,153 @@
+version: 2
+
+models:
+  - name: ref_exam
+    description: "Refined model for investigations → exam mapping"
+    columns:
+      - name: exam_id
+        description: "Surrogate key for exam, from investigation_id"
+        tests:
+          - not_null
+      - name: gp_practice_id
+        description: "Clinic identifier"
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - exam_id
+            - gp_practice_id
+          description: >
+            Ensures each exam is unique per practice.
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'investigations')
+          description: >
+            Validates that the number of exams matches the number of source investigations.
+
+  - name: ref_test
+    description: "Refined model for investigation items → test mapping with field_type cases"
+    columns:
+      - name: test_id
+        description: "Surrogate key for test, from investigation_item_id"
+        tests:
+          - not_null
+      - name: gp_practice_id
+        description: "Clinic identifier"
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - test_id
+            - gp_practice_id
+          description: >
+            Ensures each test is unique per practice.
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'investigationitems')
+          description: >
+            Validates that the number of tests matches the number of source investigation items.
+
+  - name: ref_lab_investigation
+    description: "Pass-through model for lab investigations"
+    columns:
+      - name: lab_investigation_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - lab_investigation_id
+            - gp_practice_id
+          description: >
+            Ensures each lab investigation is unique per practice.
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'labinvestigation')
+          description: >
+            Validates that the number of rows matches the source labinvestigation table.
+
+  - name: ref_lab_patient_investigations
+    description: "Pass-through model for lab patient investigations"
+    columns:
+      - name: lab_pinvest_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - lab_pinvest_id
+            - gp_practice_id
+          description: >
+            Ensures each lab patient investigation is unique per practice.
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'labpatientinvestigations')
+          description: >
+            Validates that the number of rows matches the source labpatientinvestigations table.
+
+  - name: ref_lab_investigation_results
+    description: "Pass-through model for lab investigation results"
+    columns:
+      - name: result_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - result_id
+            - gp_practice_id
+          description: >
+            Ensures each lab investigation result is unique per practice.
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'labinvestigationresults')
+          description: >
+            Validates that the number of rows matches the source labinvestigationresults table.
+
+  - name: ref_patient_exam
+    description: "Refined patient exam model with status mapping"
+    columns:
+      - name: patient_exam_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - patient_exam_id
+            - gp_practice_id
+          description: >
+            Ensures each patient exam is unique per practice.
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'patientinvestigations')
+          description: >
+            Validates that the number of patient_exam records matches the source patientinvestigations table.
+
+  - name: ref_patient_test
+    description: "Refined patient test model with UUID & result mapping"
+    columns:
+      - name: patient_test_id
+        tests:
+          - not_null
+      - name: gp_practice_id
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - patient_test_id
+            - gp_practice_id
+          description: >
+            Ensures each patient test is unique per practice.
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'investigationresults')
+          description: >
+            Validates that the number of patient_test records matches the source investigationresults table.

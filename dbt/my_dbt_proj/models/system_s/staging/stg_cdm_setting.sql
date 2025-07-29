@@ -1,7 +1,7 @@
 WITH source AS (
     SELECT *
     FROM {{ source('system_s', 'CdmSetting') }}
-    WHERE {{ filter_by_clinic() }}
+    
 )
 
 SELECT

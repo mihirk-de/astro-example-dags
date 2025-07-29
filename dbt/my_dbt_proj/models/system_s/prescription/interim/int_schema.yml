@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: int_prescription_instructions
+    description: "Prescription instructions joined with prescription issue to get drug_id"
+    columns:
+      - name: prescription_id
+        tests:
+          - not_null
+
+  - name: int_prescriptions
+    description: "Notes derived from MedicalHistory + ICPC2 joins"
+    columns: 
+      - name: prescription_id
+        tests:
+          - not_null
+      - name: consultation_id
+        tests:
+          - not_null
+      - name: patient_id
+        tests:
+          - not_null
+      - name: prescription_type
+        tests:
+          - accepted_values:
+              values: ['Acute', 'Repeat']

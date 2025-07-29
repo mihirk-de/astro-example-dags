@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: ref_mmse
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'mmse')
+          description: >
+            Validates that the number of MMSE records in the refined model matches the number
+            in the raw source for the given gp_practice_id.
+
+  - name: ref_mirena_counselling
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'mirenacounselling')
+          description: >
+            Validates that the number of mirena counselling records in the refined model matches
+            the number in the raw source for the given gp_practice_id.
+
+  - name: ref_cycle_of_care_submission
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'cycleofcaresubmission')
+          description: >
+            Validates that the number of cycle of care submission records in the refined model
+            matches the number in the raw source for the given gp_practice_id.
+
+  - name: ref_diabetes_care_cycle
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'DiabetesCareCycle')
+          description: >
+            Validates that the number of diabetes care cycle records in the refined model matches
+            the number in the raw source for the given gp_practice_id.
+
+  - name: ref_cycle_of_care
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'CycleOfCare')
+          description: >
+            Validates that the number of cycle of care records in the refined model matches the number
+            in the raw source for the given gp_practice_id.
+
+  - name: ref_asthma_care_cycle
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'AsthmaCareCycle')
+          description: >
+            Validates that the number of asthma care cycle records in the refined model matches
+            the number in the raw source for the given gp_practice_id.
+
+  - name: ref_periodic_assessment_care_cycle
+    tests:
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('system_s', 'PeriodicAssessmentCareCycle')
+          description: >
+            Validates that the number of periodic assessment care cycle records in the refined model
+            matches the number in the raw source for the given gp_practice_id.

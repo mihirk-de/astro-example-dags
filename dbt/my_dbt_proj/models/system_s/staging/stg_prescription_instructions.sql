@@ -4,4 +4,4 @@ select
     orderindex as order_index,
     gp_practice_id
 from {{ source('system_s', 'prescriptioninstructions') }}
-WHERE {{ filter_by_clinic() }}
+

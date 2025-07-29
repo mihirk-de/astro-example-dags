@@ -1,7 +1,7 @@
 WITH source AS (
     SELECT *
     FROM {{ source('system_s', 'CycleOfCareType') }}
-    WHERE {{ filter_by_clinic() }}
+    
 )
 
 SELECT
